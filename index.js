@@ -22,23 +22,56 @@ function displayChoices(humanChoice, computerChoice) {
                   + ". ");
 }
 
-// function playRound(humanChoice, computerChoice) {
-//     if (humanChoice == "rock"){
-//         if (computerChoice == "paper") {
-//             displayChoices(humanChoice, computerChoice);
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice == "rock"){
+        if (computerChoice == "paper") {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You lose!");
+            computerScore++;
+        } else if (computerChoice == "scissors") {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You win!");
+            humanScore++;
+        } else {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You tied!");
+        }
+    }
 
-//             computerScore++;
-//         } else if (computerChoice == "scissors") {
-//             console.log ("You chose " + humanChoice[0].toUpperCase() + ". Computer chose " +
-//             computerChoice[0].toUpperCase() + ". You lose!");
-//             computerScore++;
-//         }
-//     }
+    if (humanChoice == "paper"){
+        if (computerChoice == "scissors") {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You lose!");
+            computerScore++;
+        } else if (computerChoice == "rock") {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You win!");
+            humanScore++;
+        } else {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You tied!");
+        }
+    }
 
-// }
+    if (humanChoice == "scissors"){
+        if (computerChoice == "rock") {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You lose!");
+            computerScore++;
+        } else if (computerChoice == "paper") {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You win!");
+            humanScore++;
+        } else {
+            displayChoices(humanChoice, computerChoice);
+            console.log("You tied!");
+        }
+    }
+}
 
-let humanChoice = getHumanChoice();
-let computerChoice = getComputerChoice();
-displayChoices(humanChoice, computerChoice);
+// let humanChoice = getHumanChoice();
+// let computerChoice = getComputerChoice();
+
 
 let humanScore, computerScore = 0;
+playRound(getHumanChoice(), getComputerChoice());
