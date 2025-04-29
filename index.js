@@ -23,7 +23,7 @@ function displayChoices(humanChoice, computerChoice) {
 }
 
 function displayScore(humanScore, computerScore) {
-    console.log("\nYour Score: " + humanScore + " Computer Score: " + computerScore);
+    console.log("Your Score: " + humanScore + " Computer Score: " + computerScore + "\n");
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -84,11 +84,17 @@ function playGame() {
     let roundResult = null;
 
     for (let i = 0; i < 5; i++){
-        if (playRound(getHumanChoice(), getComputerChoice())){
-            humanScore++
+        roundResult = playRound(getHumanChoice(), getComputerChoice());
+
+        if (roundResult){
+            displayScore(++humanScore, computerScore);
+        } else if (roundResult != null){
+            displayScore(humanScore, ++computerScore);
+        } else {
+            displayScore(humanScore, computerScore);
         }
-
-
     }
 }
+
+playGame();
 
