@@ -2,16 +2,18 @@ function getComputerChoice(){
     let computerChoice = Math.random();
 
     if (computerChoice <= 0.33){
-        return "Rock";
+        return "rock";
     } else if (computerChoice <= 0.66) {
-        return "Paper";
+        return "paper";
     } else {
-        return "Scissors";
+        return "scissors";
     }
 }
 
 function getHumanChoice() {
-    window.prompt('Enter "Rock", "Paper", or "Scissors"');
+    let humanChoice = window.prompt('Enter "Rock", "Paper", or "Scissors"');
+    
+    return humanChoice.toLowerCase();
 }
 
 console.log(getComputerChoice());
