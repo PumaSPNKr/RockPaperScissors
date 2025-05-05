@@ -1,3 +1,29 @@
+const choiceButtons = document.querySelectorAll('.button');
+let humanScore = 0;
+let computerScore = 0;
+const maxScore = 5;
+
+choiceButtons.forEach(button => button.addEventListener('click', (e) => {
+    if (button.id == "rock-button") playRound('rock', getComputerChoice()); 
+    if (button.id == "paper-button") playRound('paper', getComputerChoice());
+    if (button.id == "scissors-button") playRound('scissors', getComputerChoice());
+    console.log(button.id);    
+}));
+
+function isGameFinished(){
+    if (humanScore == 5){
+        alert("You win!");
+        humanScore = 0;
+        computerScore = 0;
+        return true;
+    } else if (computerScore == 5) {
+        alert("You lose!");
+        humanScore = 0;
+        computerScore = 0;
+        return true;
+    } else return false;
+} 
+
 function getComputerChoice(){
     let computerChoice = Math.random();
 
@@ -10,91 +36,89 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice() {
-    let humanChoice = window.prompt('Enter "Rock", "Paper", or "Scissors"');
-    
-    return humanChoice.toLowerCase();
-}
+function displayChoices(humanChoice, computerChoice, result) {
+    const playDiv = document.querySelector("#game");
 
-function displayChoices(humanChoice, computerChoice) {
-    console.log ("You chose " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) +
+    playDiv.textContent = "You chose " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) +
                  ". Computer chose " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)
-                  + ". ");
+                  + ". \r\nYou " + result + "!";
+
+    console.log("click!");
+    
 }
 
-function displayScore(humanScore, computerScore) {
-    console.log("Your Score: " + humanScore + " Computer Score: " + computerScore + "\n");
+function displayScore() {
+    const scoreDiv = document.querySelector("#score");
+
+    scoreDiv.textContent = "Your Score: " + humanScore + " Computer Score: " + computerScore + "\n";
 }
 
 function playRound(humanChoice, computerChoice) {
+    let result = "";
+
     if (humanChoice == "rock"){
         if (computerChoice == "paper") {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You lose!");
+            result = "lose";
+            displayChoices(humanChoice, computerChoice, result);
+            computerScore++;
+            displayScore();  
+            isGameFinished();          
             return false;
         } else if (computerChoice == "scissors") {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You win!");
+            result = "win";
+            humanScore++;
+            displayChoices(humanChoice, computerChoice, result);
+            displayScore();
+            isGameFinished();  
             return true;
         } else {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You tied!");
+            result = "tied";
+            displayChoices(humanChoice, computerChoice, result);
             return null;
         }
     }
 
     if (humanChoice == "paper"){
         if (computerChoice == "scissors") {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You lose!");
+            result = "lose";
+            computerScore++;
+            displayChoices(humanChoice, computerChoice, result);
+            displayScore();
+            isGameFinished();  
             return false;
         } else if (computerChoice == "rock") {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You win!");
+            result = "win";
+            humanScore++;
+            displayChoices(humanChoice, computerChoice, result);
+            displayScore();
+            isGameFinished();  
             return true;
         } else {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You tied!");
+            result = "tied";
+            displayChoices(humanChoice, computerChoice, result);
             return null;
         }
     }
 
     if (humanChoice == "scissors"){
         if (computerChoice == "rock") {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You lose!");
+            result = "lose";
+            computerScore++;
+            displayChoices(humanChoice, computerChoice, result);
+            displayScore();
+            isGameFinished();  
             return false;
         } else if (computerChoice == "paper") {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You win!");
+            result = "win";
+            humanScore++;
+            displayChoices(humanChoice, computerChoice, result);
+            displayScore();
+            isGameFinished();  
             return true;
         } else {
-            displayChoices(humanChoice, computerChoice);
-            console.log("You tied!");
+            result = "tied";
+            displayChoices(humanChoice, computerChoice, result);
             return null;
         }
     }
 }
-
-
-
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    let roundResult = null;
-
-    for (let i = 0; i < 5; i++){
-        roundResult = playRound(getHumanChoice(), getComputerChoice());
-
-        if (roundResult){
-            displayScore(++humanScore, computerScore);
-        } else if (roundResult != null){
-            displayScore(humanScore, ++computerScore);
-        } else {
-            displayScore(humanScore, computerScore);
-        }
-    }
-}
-
-playGame();
-
